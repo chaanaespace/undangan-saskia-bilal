@@ -37,7 +37,6 @@
   .serif{font-family:'Playfair Display', serif;}
   .script{font-family:'Cormorant Garamond', serif;}
 
-  /* ---------- Scroll progress bar ---------- */
   #scroll-progress{
     position:fixed; top:0; left:0; height:3px; width:0%; z-index:400;
     background:linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
@@ -45,7 +44,6 @@
     transition:width 0.08s linear;
   }
 
-  /* ---------- Scroll reveal: elements "settle into place" ---------- */
   .reveal{
     opacity:0;
     transform:translateY(46px) scale(0.96);
@@ -69,10 +67,10 @@
   .reveal.in-view .reveal-child:nth-child(5){transition-delay:0.49s;}
   .reveal.in-view .reveal-child:nth-child(6){transition-delay:0.6s;}
 
-  /* ambient petals that drift while scrolling through the invitation */
   #ambient-petals{
     position:fixed; inset:0; z-index:2; pointer-events:none; overflow:hidden;
     max-width:480px; margin:0 auto;
+    perspective:900px;
   }
   #ambient-petals .petal{opacity:0.55;}
 
@@ -80,7 +78,6 @@
     .reveal, .reveal-child{ opacity:1 !important; transform:none !important; transition:none !important; }
   }
 
-  /* ---------- Songket border pattern ---------- */
   .songket-band{
     height:14px;
     background:
@@ -89,7 +86,6 @@
   }
   .songket-band.thin{height:8px;}
 
-  /* ---------- COVER ---------- */
   #cover{
     position:fixed; inset:0; z-index:200;
     max-width:480px; margin:0 auto;
@@ -100,11 +96,19 @@
     text-align:center; color:var(--gold-light);
     overflow:hidden;
     padding:24px;
+    perspective:900px;
   }
-  #petal-layer{position:absolute; inset:0; pointer-events:none; overflow:hidden;}
-  .petal{position:absolute; top:-40px; font-size:22px; opacity:0.9; will-change:transform;}
-  @keyframes fall{
-    to{ transform:translateY(115vh) rotate(360deg); opacity:0.15; }
+  #petal-layer{position:absolute; inset:0; pointer-events:none; overflow:hidden; transform-style:preserve-3d;}
+  .petal{position:absolute; top:-40px; font-size:22px; opacity:0.9; will-change:transform; transform-style:preserve-3d;}
+  @keyframes fall3d{
+    0%{
+      transform: translate3d(0, 0, var(--pz,0px)) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(var(--pscale,1));
+      opacity:0.95;
+    }
+    100%{
+      transform: translate3d(var(--px,0px), 115vh, var(--pz,0px)) rotateX(var(--rx,540deg)) rotateY(var(--ry,360deg)) rotateZ(var(--rz,300deg)) scale(var(--pscale,1));
+      opacity:0.12;
+    }
   }
   #cover .ornament-top{font-size:34px; margin-bottom:8px; letter-spacing:4px;}
   #cover .eyebrow{
@@ -133,10 +137,8 @@
   @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
   #cover .ornament-bottom{position:absolute; bottom:18px; font-size:11px; letter-spacing:3px; color:#9c7b3f;}
 
-  /* burst petals when opening */
-  .burst{position:fixed; z-index:300; font-size:26px; pointer-events:none;}
+  .burst{position:fixed; z-index:300; font-size:26px; pointer-events:none; transform-style:preserve-3d;}
 
-  /* ---------- MAIN CONTENT ---------- */
   #content{display:none;}
   #content.show{display:block; animation:fadeUp 0.9s ease both;}
   @keyframes fadeUp{from{opacity:0; transform:translateY(24px);} to{opacity:1; transform:translateY(0);}}
@@ -154,7 +156,6 @@
     width:60px; height:2px; background:var(--gold); margin:16px auto 26px;
   }
 
-  /* HERO */
   #hero{
     background:linear-gradient(180deg, var(--cream) 0%, #fdf3e0 100%);
     text-align:center; padding-top:60px;
@@ -181,7 +182,6 @@
   .mini-countdown .num{font-size:20px; font-weight:700; font-family:'Playfair Display', serif;}
   .mini-countdown .lbl{font-size:9px; letter-spacing:1px; text-transform:uppercase; opacity:0.85;}
 
-  /* MEMPELAI */
   #mempelai{background:var(--cream);}
   .couple-card{
     display:flex; flex-direction:column; align-items:center; text-align:center;
@@ -204,10 +204,13 @@
   }
   .avatar-ring .inner img{
     width:100%; height:100%; object-fit:cover; display:block;
+    position:absolute; inset:0;
   }
   .avatar-ring .inner .placeholder-fallback{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    display:none;
+    flex-direction:column; align-items:center; justify-content:center;
     color:var(--gold-light); gap:4px;
+    position:relative; z-index:1; width:100%; height:100%;
   }
   .avatar-ring .inner .placeholder-fallback .pf-icon{font-size:32px;}
   .avatar-ring .inner .placeholder-fallback .pf-label{font-size:9px; letter-spacing:0.5px; color:var(--gold); text-align:center; padding:0 10px;}
@@ -216,7 +219,6 @@
   .couple-card .parents{font-size:13px; color:#6b584a; max-width:280px; line-height:1.6;}
   .couple-and{text-align:center; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:26px; color:var(--gold); margin:6px 0 30px;}
 
-  /* ACARA */
   #acara{background:linear-gradient(180deg,#fdf3e0,var(--cream));}
   .event-card{
     background:#fff; border:1px solid #eadfc4; border-radius:14px; padding:22px;
@@ -238,7 +240,6 @@
     color:var(--gold-light); border-radius:24px; font-size:12px; text-decoration:none; font-weight:500;
   }
 
-  /* BIG COUNTDOWN */
   #countdown-full{
     background:var(--maroon); text-align:center; color:var(--gold-light);
   }
@@ -252,7 +253,6 @@
   .big-count .num{font-size:26px; font-weight:700; font-family:'Playfair Display', serif; color:var(--gold-light);}
   .big-count .lbl{font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--gold);}
 
-  /* GALERI */
   #galeri{background:var(--cream);}
   .gallery-grid{
     display:grid; grid-template-columns:1fr 1fr; gap:12px;
@@ -268,13 +268,11 @@
   .gallery-grid .ph:hover{ transform:translateY(-4px) rotate(-1deg); box-shadow:0 10px 22px rgba(74,10,21,0.15); }
   .gallery-grid .ph:nth-child(1){ border-radius:50%; }
   .gallery-grid .ph:nth-child(2){ border-radius:16px 4px 16px 4px; }
-  .gallery-grid .ph:nth-child(3){ border-radius:4px 16px 4px 16px; }
-  .gallery-grid .ph:nth-child(4){ border-radius:50%; }
+  .gallery-grid .ph:nth-child(3){ border-radius:4px 16px 4px 16px; grid-column:1 / -1; max-width:220px; margin:0 auto; }
   .gallery-grid .ph img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
   .gallery-grid .ph span.ic{font-size:22px;}
   .gallery-grid .ph .ph-label{ position:relative; z-index:1; font-weight:500; }
 
-  /* ---------- LOVE STORY TIMELINE ---------- */
   #love-story{background:linear-gradient(180deg,var(--cream),#fdf3e0);}
   .timeline{ position:relative; padding-left:26px; margin-top:10px; }
   .timeline::before{
@@ -295,7 +293,6 @@
   .timeline-item .t-title{ font-family:'Playfair Display', serif; font-size:17px; color:var(--maroon-deep); margin:4px 0 6px; }
   .timeline-item .t-desc{ font-size:13px; color:#665244; line-height:1.7; }
 
-  /* RSVP */
   #rsvp{background:linear-gradient(180deg,var(--cream),#fdf3e0);}
   .form-group{margin-bottom:16px;}
   .form-group label{display:block; font-size:12px; letter-spacing:1px; color:var(--maroon); margin-bottom:6px; font-weight:500;}
@@ -321,7 +318,6 @@
   .wish-item .wmsg{margin-top:4px; color:#555;}
   .empty-note{text-align:center; font-size:12.5px; color:#a08a63; font-style:italic;}
 
-  /* KADO */
   #kado{background:var(--cream);}
   .gift-card{
     background:#fff; border:1px solid #eadfc4; border-radius:14px; padding:20px;
@@ -340,7 +336,6 @@
   }
   .addr-text{font-size:13px; line-height:1.7; color:#444; margin-bottom:10px;}
 
-  /* CLOSING */
   #closing{
     background:linear-gradient(180deg, var(--maroon) 0%, var(--maroon-deep) 100%);
     text-align:center; color:var(--gold-light); padding:56px 28px 70px;
@@ -348,7 +343,25 @@
   #closing .closing-quote{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16px; max-width:320px; margin:0 auto 20px; line-height:1.8; color:#F1E4C0;}
   #closing .closing-names{font-family:'Playfair Display', serif; font-size:26px; color:var(--gold-light); margin-top:14px;}
 
-  /* MUSIC BUTTON */
+  /* ---------- PANEL MEMPELAI (halaman terakhir, hanya muncul tanpa ?to=) ---------- */
+  #admin-panel{ background:var(--cream); }
+  #admin-panel .result-box{
+    display:none; margin-top:18px; background:#fff; border:1px solid var(--gold); border-radius:10px;
+    padding:16px; text-align:center;
+  }
+  #admin-panel .result-box .result-title{ font-family:'Playfair Display', serif; font-size:15px; color:var(--maroon); margin-bottom:8px; }
+  #admin-panel .result-box .result-link{ display:block; word-break:break-all; font-size:12px; color:#444; background:#faf3e2; padding:8px 10px; border-radius:8px; }
+  #admin-panel .history-item{
+    display:flex; justify-content:space-between; align-items:center; gap:8px;
+    background:#fff; border-left:3px solid var(--gold); padding:8px 10px; border-radius:6px;
+    margin-bottom:6px; font-size:12px;
+  }
+  #admin-panel .history-item span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  #admin-panel .history-item button{
+    width:auto; padding:5px 10px; font-size:10.5px; flex-shrink:0;
+    background:var(--maroon); color:var(--gold-light); border:none; border-radius:6px; cursor:pointer;
+  }
+
   #music-toggle{
     position:fixed; bottom:20px; right:calc(50% - 220px); z-index:150;
     width:48px; height:48px; border-radius:50%; background:var(--maroon); color:var(--gold-light);
@@ -364,7 +377,6 @@
     .petal, #open-btn, #music-toggle.spinning{animation:none !important;}
   }
 
-  /* confetti burst on RSVP success */
   .confetti-piece{ position:fixed; z-index:350; pointer-events:none; border-radius:2px; }
 </style>
 </head>
@@ -413,7 +425,6 @@
         <div class="divider reveal-child"></div>
 
         <div class="couple-card reveal-child">
-          <!-- Ganti src di bawah dengan foto asli Saskia. Jika src kosong/gagal, ikon placeholder otomatis tampil -->
           <div class="avatar-ring">
             <div class="inner">
               <img src="foto-saskia.jpeg" alt="Foto Saskia Widya Ningsih" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -431,7 +442,6 @@
         <div class="couple-and reveal-child">&</div>
 
         <div class="couple-card reveal-child">
-          <!-- Ganti src di bawah dengan foto asli Bilal -->
           <div class="avatar-ring">
             <div class="inner">
               <img src="foto-bilal.jpeg" alt="Foto Bilal Putu Kacang" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -516,15 +526,10 @@
             <span class="ic" style="display:flex;">📷</span><span class="ph-label" style="display:flex;">Prewedding</span>
           </div>
           <div class="ph">
-            <img src="galeri-3.jpeg" alt="Galeri 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <span class="ic" style="display:flex;">📷</span><span class="ph-label" style="display:flex;">Bersama Keluarga</span>
-          </div>
-          <div class="ph">
-            <img src="galeri-4.jpeg" alt="Galeri 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <img src="galeri-4.jpeg" alt="Galeri 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <span class="ic" style="display:flex;">📷</span><span class="ph-label" style="display:flex;">Momen Spesial</span>
           </div>
         </div>
-        <p class="empty-note reveal-child" style="margin-top:14px;">Ganti file galeri-1.jpeg s/d galeri-4.jpeg dan foto-saskia.jpeg / foto-bilal.jpeg dengan foto asli Anda (lihat catatan di bagian bawah pesan)</p>
       </section>
 
       <div class="songket-band thin"></div>
@@ -604,6 +609,32 @@
         <p class="reveal-child" style="font-size:12px; margin-top:16px; color:#c9a97a; letter-spacing:1px;">10 Agustus 2026 • Maros, Sulawesi Selatan</p>
       </section>
 
+      <!-- ============================================================
+           PANEL MEMPELAI — halaman paling akhir.
+           display:none secara default di CSS. Hanya di-unhide oleh JS
+           kalau URL TIDAK punya parameter ?to= (artinya bukan tamu).
+           Tamu yang membuka link ?to=Nama TIDAK PERNAH melihat ini.
+      ============================================================= -->
+      <section id="admin-panel" class="reveal" style="display:none;">
+        <div class="section-eyebrow reveal-child">Halaman Privat</div>
+        <div class="section-title serif reveal-child">Buat Link Undangan</div>
+        <div class="divider reveal-child"></div>
+        <p class="reveal-child" style="text-align:center; font-size:13px; color:#8a7052; margin-bottom:20px; line-height:1.7;">
+          Bagian ini hanya tampil di halaman induk (tanpa nama tamu). Tulis nama tamu, lalu buat link khusus untuk dibagikan lewat WhatsApp.
+        </p>
+
+        <div class="form-group reveal-child">
+          <label>Nama Tamu</label>
+          <input type="text" id="guest-input" placeholder="Contoh: Bapak Ahmad Sekeluarga">
+        </div>
+        <button class="submit-btn reveal-child" onclick="generateLinkAndGo()">✧ Buat Link Undangan ✧</button>
+
+        <div class="reveal-child" style="margin-top:26px;">
+          <h4 style="font-family:'Playfair Display', serif; font-size:15px; color:var(--maroon); margin-bottom:10px; text-align:center;">🕓 Riwayat Link Dibuat</h4>
+          <div id="history-list"><p class="empty-note">Belum ada link dibuat di perangkat ini.</p></div>
+        </div>
+      </section>
+
     </div>
   </div>
 
@@ -613,46 +644,125 @@
   </audio>
 
 <script>
-  // ---------- Guest name from URL ----------
+  // ---------- Guest name & mode dari URL ----------
   const params = new URLSearchParams(window.location.search);
-  const guestName = params.get('to') ? decodeURIComponent(params.get('to')) : 'Tamu Undangan';
+  const rawGuestParam = params.get('to');
+  const isGuestMode = !!(rawGuestParam && rawGuestParam.trim());
+  const guestName = isGuestMode ? decodeURIComponent(rawGuestParam) : 'Tamu Undangan';
   document.getElementById('guest-name-cover').textContent = guestName;
 
-  // ---------- Petal rain on cover (ambient) ----------
+  // Panel mempelai hanya tampil kalau BUKAN mode tamu.
+  if(!isGuestMode){
+    const adminPanel = document.getElementById('admin-panel');
+    if(adminPanel) adminPanel.style.display = 'block';
+  }
+
+  function getShareBaseUrl(){
+    return window.location.origin + window.location.pathname;
+  }
+
+  function generateLinkAndGo(){
+    const nameInput = document.getElementById('guest-input');
+    const name = nameInput.value.trim();
+    if(!name){ alert('Tulis dulu nama tamunya ya.'); return; }
+    const url = `${getShareBaseUrl()}?to=${encodeURIComponent(name)}`;
+    saveLinkHistory(name, url);
+    window.location.href = url;
+  }
+
+  function saveLinkHistory(name, url){
+    let list = [];
+    try{ list = JSON.parse(localStorage.getItem('undangan_link_history') || '[]'); }catch(e){}
+    list.unshift({ name, url, time: Date.now() });
+    list = list.slice(0, 50);
+    try{ localStorage.setItem('undangan_link_history', JSON.stringify(list)); }catch(e){}
+  }
+
+  function renderLinkHistory(){
+    if(isGuestMode) return;
+    let list = [];
+    try{ list = JSON.parse(localStorage.getItem('undangan_link_history') || '[]'); }catch(e){}
+    const el = document.getElementById('history-list');
+    if(!el) return;
+    if(list.length === 0){
+      el.innerHTML = '<p class="empty-note">Belum ada link dibuat di perangkat ini.</p>';
+      return;
+    }
+    el.innerHTML = list.map(it => `
+      <div class="history-item">
+        <span>${escapeHtml(it.name)}</span>
+        <button onclick="navigator.clipboard.writeText('${it.url.replace(/'/g, "\\'")}').then(()=>alert('Tersalin!'))">Salin</button>
+      </div>
+    `).join('');
+  }
+  renderLinkHistory();
+
+  // ---------- Petal 3D scatter di cover (ambient) ----------
   const petalEmojis = ['🌺','🌸','💐','🌼','🏵️','✨'];
   const petalLayer = document.getElementById('petal-layer');
+
   function spawnPetal(){
     const p = document.createElement('div');
     p.className = 'petal';
     p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
     p.style.left = Math.random()*100 + '%';
-    const duration = 5 + Math.random()*5;
-    p.style.animation = `fall ${duration}s linear forwards`;
-    p.style.fontSize = (16 + Math.random()*14) + 'px';
+
+    const depth = (Math.random()-0.5) * 200;
+    const scale = 1 + depth/220;
+    const duration = 6 - (depth/100)*1.5 + Math.random()*3;
+    const driftX = (Math.random()-0.5) * 160;
+    const rx = 360 + Math.random()*720;
+    const ry = 360 + Math.random()*720;
+    const rz = 180 + Math.random()*540;
+
+    p.style.setProperty('--pz', depth + 'px');
+    p.style.setProperty('--pscale', scale.toFixed(2));
+    p.style.setProperty('--px', driftX + 'px');
+    p.style.setProperty('--rx', rx + 'deg');
+    p.style.setProperty('--ry', ry + 'deg');
+    p.style.setProperty('--rz', rz + 'deg');
+    p.style.animation = `fall3d ${duration}s linear forwards`;
+    p.style.fontSize = (14 + Math.random()*16) + 'px';
+
     petalLayer.appendChild(p);
     setTimeout(()=>p.remove(), duration*1000);
   }
-  const ambientInterval = setInterval(spawnPetal, 350);
-  for(let i=0;i<12;i++) setTimeout(spawnPetal, i*120);
+  const ambientInterval = setInterval(spawnPetal, 320);
+  for(let i=0;i<14;i++) setTimeout(spawnPetal, i*110);
 
-  // ---------- Open invitation ----------
+  // ---------- Open invitation: 3D burst ----------
   function openInvitation(){
-    // burst of petals across whole screen
-    for(let i=0;i<40;i++){
+    for(let i=0;i<48;i++){
       setTimeout(()=>{
         const b = document.createElement('div');
         b.className = 'burst';
         b.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
-        b.style.left = Math.random()*100 + '%';
-        b.style.top = '-30px';
-        b.style.fontSize = (18 + Math.random()*16) + 'px';
+        const startX = 50 + (Math.random()-0.5)*20;
+        b.style.left = startX + '%';
+        b.style.top = '45%';
+        const size = 16 + Math.random()*20;
+        b.style.fontSize = size + 'px';
         document.body.appendChild(b);
+
+        const angle = Math.random()*Math.PI*2;
+        const spread = 120 + Math.random()*220;
+        const outX = Math.cos(angle) * spread;
+        const outY = Math.sin(angle) * spread * 0.4 - 60;
+        const depthZ = (Math.random()-0.5) * 300;
+        const fallY = window.innerHeight + 80;
+        const rotX = 360 + Math.random()*720;
+        const rotY = 360 + Math.random()*720;
+        const rotZ = 180 + Math.random()*720;
+        const dur = 1900 + Math.random()*1400;
+
         b.animate([
-          { transform:'translateY(0) rotate(0deg)', opacity:1 },
-          { transform:`translateY(${window.innerHeight+60}px) rotate(${360+Math.random()*360}deg)`, opacity:0.2 }
-        ], { duration: 2200 + Math.random()*1500, easing:'ease-in' });
-        setTimeout(()=>b.remove(), 3800);
-      }, i*35);
+          { transform:`translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0)`, opacity:1 },
+          { transform:`translate3d(${outX}px, ${outY}px, ${depthZ}px) rotateX(${rotX*0.3}deg) rotateY(${rotY*0.3}deg) rotateZ(${rotZ*0.3}deg)`, opacity:1, offset:0.35 },
+          { transform:`translate3d(${outX*1.3}px, ${fallY}px, ${depthZ}px) rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`, opacity:0.15 }
+        ], { duration: dur, easing:'cubic-bezier(.2,.7,.3,1)' });
+
+        setTimeout(()=>b.remove(), dur + 300);
+      }, i*30);
     }
 
     setTimeout(()=>{
@@ -669,10 +779,9 @@
       document.getElementById('music-toggle').classList.add('spinning');
       startAmbientPetals();
       updateProgress();
-    }, 500);
+    }, 600);
   }
 
-  // ---------- Scroll progress bar ----------
   const progressBar = document.getElementById('scroll-progress');
   function updateProgress(){
     const scrollTop = window.scrollY;
@@ -682,7 +791,6 @@
   }
   window.addEventListener('scroll', updateProgress, { passive:true });
 
-  // ---------- Subtle parallax on hero ornament ----------
   const heroKupu = document.querySelector('#hero .kupu');
   function updateParallax(){
     if(!heroKupu) return;
@@ -691,7 +799,6 @@
   }
   window.addEventListener('scroll', updateParallax, { passive:true });
 
-  // ---------- Scroll reveal: sections "settle into place" as user scrolls ----------
   const revealEls = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
@@ -703,7 +810,6 @@
   }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
   revealEls.forEach(el=>revealObserver.observe(el));
 
-  // ---------- Ambient petals while scrolling the invitation ----------
   const ambientLayer = document.getElementById('ambient-petals');
   let ambientRunning = false;
   function spawnAmbientPetal(){
@@ -711,19 +817,33 @@
     p.className = 'petal';
     p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
     p.style.left = Math.random()*100 + '%';
-    const duration = 7 + Math.random()*6;
-    p.style.animation = `fall ${duration}s linear forwards`;
-    p.style.fontSize = (14 + Math.random()*10) + 'px';
+
+    const depth = (Math.random()-0.5) * 160;
+    const scale = 1 + depth/220;
+    const duration = 8 - (depth/100) + Math.random()*4;
+    const driftX = (Math.random()-0.5) * 120;
+    const rx = 360 + Math.random()*540;
+    const ry = 360 + Math.random()*540;
+    const rz = 180 + Math.random()*360;
+
+    p.style.setProperty('--pz', depth + 'px');
+    p.style.setProperty('--pscale', scale.toFixed(2));
+    p.style.setProperty('--px', driftX + 'px');
+    p.style.setProperty('--rx', rx + 'deg');
+    p.style.setProperty('--ry', ry + 'deg');
+    p.style.setProperty('--rz', rz + 'deg');
+    p.style.animation = `fall3d ${duration}s linear forwards`;
+    p.style.fontSize = (12 + Math.random()*12) + 'px';
+
     ambientLayer.appendChild(p);
     setTimeout(()=>p.remove(), duration*1000);
   }
   function startAmbientPetals(){
     if(ambientRunning) return;
     ambientRunning = true;
-    setInterval(spawnAmbientPetal, 1400);
+    setInterval(spawnAmbientPetal, 1300);
   }
 
-  // ---------- Confetti burst (used on RSVP success) ----------
   function fireConfetti(){
     const colors = ['#D4AF37','#F1D98B','#6E0F1F','#fff8e9'];
     for(let i=0;i<28;i++){
@@ -744,7 +864,6 @@
     }
   }
 
-  // ---------- Music toggle ----------
   function toggleMusic(){
     const music = document.getElementById('bg-music');
     const btn = document.getElementById('music-toggle');
@@ -752,7 +871,6 @@
     else{ music.pause(); btn.classList.remove('spinning'); }
   }
 
-  // ---------- Countdown ----------
   const weddingDate = new Date('2026-08-10T11:00:00+08:00').getTime();
   function renderCountdown(){
     const now = Date.now();
@@ -771,14 +889,12 @@
   renderCountdown();
   setInterval(renderCountdown, 1000);
 
-  // ---------- Add to calendar (Google Calendar link) ----------
-  const calStart = '20260810T030000Z'; // 11:00 WITA = 03:00 UTC
+  const calStart = '20260810T030000Z';
   const calEnd = '20260810T090000Z';
   const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Pernikahan Saskia & Bilal')}&dates=${calStart}/${calEnd}&details=${encodeURIComponent('Akad & Resepsi Pernikahan Saskia Widya Ningsih & Bilal Putu Kacang')}&location=${encodeURIComponent('Perumahan Griya Bonto Jolong')}`;
   document.getElementById('add-cal-link').href = calUrl;
   document.getElementById('add-cal-link').target = '_blank';
 
-  // ---------- Copy to clipboard ----------
   function copyText(text, btnEl){
     navigator.clipboard.writeText(text).then(()=>{
       const original = btnEl.textContent;
@@ -789,7 +905,6 @@
     });
   }
 
-  // ---------- Kirim notifikasi RSVP ke Discord Webhook ----------
   const DISCORD_WEBHOOK_URL = 'https://discordapp.com/api/webhooks/1526496409812205618/T_yW_xIg4Vjx0ZyGqdOUD7qt7GBr6hwN56R6moZ5yFuhWsNA43udPWX3ZwjakNKAwBeF';
 
   async function sendToDiscord(entry){
@@ -821,7 +936,6 @@
     }
   }
 
-  // ---------- RSVP + Guestbook (persisted via window.storage, shared) ----------
   async function loadWishes(){
     const listEl = document.getElementById('wish-list');
     try{
@@ -868,7 +982,6 @@
 
     const entry = { name, status, jumlah, pesan, time: Date.now() };
 
-    // Kirim ke Discord terlebih dulu, tidak bergantung pada berhasil/gagalnya window.storage
     sendToDiscord(entry);
 
     try{
