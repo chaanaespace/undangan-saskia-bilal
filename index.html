@@ -33,6 +33,7 @@
     position:relative;
     min-height:100vh;
     box-shadow:0 0 60px rgba(0,0,0,0.5);
+    overflow:hidden;
   }
   .serif{font-family:'Playfair Display', serif;}
   .script{font-family:'Cormorant Garamond', serif;}
@@ -72,7 +73,7 @@
     max-width:480px; margin:0 auto;
     perspective:900px;
   }
-  #ambient-petals .petal{opacity:0.55;}
+  #ambient-petals .petal{opacity:0.6;}
 
   @media (prefers-reduced-motion: reduce){
     .reveal, .reveal-child{ opacity:1 !important; transform:none !important; transition:none !important; }
@@ -86,6 +87,18 @@
   }
   .songket-band.thin{height:8px;}
 
+  /* ---------- Corner flower bouquets (per-section flower decor, seperti screenshot) ---------- */
+  .corner-bouquet{
+    position:absolute; z-index:0; pointer-events:none;
+    font-size:40px; line-height:0.78; letter-spacing:-10px;
+    white-space:nowrap; display:block; opacity:0.92;
+    filter:drop-shadow(0 6px 14px rgba(74,10,21,0.18));
+  }
+  .corner-bouquet.top-right{ top:-14px; right:-14px; transform:rotate(8deg); }
+  .corner-bouquet.bottom-left{ bottom:-14px; left:-14px; transform:rotate(188deg); }
+  section{ overflow:hidden; }
+  section > *:not(.corner-bouquet){ position:relative; z-index:1; }
+
   #cover{
     position:fixed; inset:0; z-index:200;
     max-width:480px; margin:0 auto;
@@ -98,7 +111,10 @@
     padding:24px;
     perspective:900px;
   }
-  #petal-layer{position:absolute; inset:0; pointer-events:none; overflow:hidden; transform-style:preserve-3d;}
+  #petal-layer{position:absolute; inset:0; pointer-events:none; overflow:hidden; transform-style:preserve-3d; z-index:1;}
+  #cover .ornament-top, #cover .eyebrow, #cover .cover-names, #cover .cover-sub, #cover .guest-box, #open-btn, #cover .ornament-bottom{
+    position:relative; z-index:2;
+  }
   .petal{position:absolute; top:-40px; font-size:22px; opacity:0.9; will-change:transform; transform-style:preserve-3d;}
   @keyframes fall3d{
     0%{
@@ -137,7 +153,7 @@
   @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
   #cover .ornament-bottom{position:absolute; bottom:18px; font-size:11px; letter-spacing:3px; color:#9c7b3f;}
 
-  .burst{position:fixed; z-index:300; font-size:26px; pointer-events:none; transform-style:preserve-3d;}
+  .burst{position:fixed; z-index:300; pointer-events:none; transform-style:preserve-3d;}
 
   #content{display:none;}
   #content.show{display:block; animation:fadeUp 0.9s ease both;}
@@ -170,8 +186,8 @@
   }
   #hero .amp2{color:var(--gold); font-style:italic; font-family:'Cormorant Garamond', serif;}
   #hero .verse{
-    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16px;
-    color:#5b4a3f; max-width:340px; margin:22px auto 0; line-height:1.7;
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:17px;
+    color:#5b4a3f; max-width:340px; margin:22px auto 0; line-height:1.75;
   }
   #hero .verse-ref{display:block; margin-top:10px; font-size:13px; color:var(--gold); font-style:normal; letter-spacing:1px;}
 
@@ -362,9 +378,11 @@
   #closing{
     background:linear-gradient(180deg, var(--maroon) 0%, var(--maroon-deep) 100%);
     text-align:center; color:var(--gold-light); padding:56px 28px 70px;
+    position:relative;
   }
   #closing .closing-quote{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16px; max-width:320px; margin:0 auto 20px; line-height:1.8; color:#F1E4C0;}
   #closing .closing-names{font-family:'Playfair Display', serif; font-size:26px; color:var(--gold-light); margin-top:14px;}
+  #closing-petals{ position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
 
   /* ---------- PANEL MEMPELAI (halaman terakhir, hanya muncul tanpa ?to=) ---------- */
 #admin-panel{
@@ -436,10 +454,10 @@
     <div id="content">
 
       <section id="hero" class="reveal">
+        <div class="corner-bouquet top-right">🌺🌼🌸</div>
         <div class="kupu reveal-child">❀ ✦ ❀</div>
         <div class="hero-names serif reveal-child">Saskia Widya Ningsih<span class="amp2 script"><br>&amp;</span>Bilal Putu Kacang</div>
-        <p class="verse reveal-child">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."
-          <span class="verse-ref">— QS. Ar-Rum: 21</span>
+        <p class="verse reveal-child">"Sipakatau, sipakalebbi, sipakainge. Dalam cinta kami belajar untuk saling memanusiakan, saling memuliakan, dan saling mengingatkan. Dengan restu Allah SWT dan doa dari keluarga serta sahabat, kami melangkah menuju kehidupan yang baru sebagai satu keluarga."
         </p>
         <div class="mini-countdown reveal-child" id="mini-countdown"></div>
       </section>
@@ -447,6 +465,8 @@
       <div class="songket-band thin"></div>
 
       <section id="mempelai" class="reveal">
+        <div class="corner-bouquet top-right">🌸🌼🌺</div>
+        <div class="corner-bouquet bottom-left">🌼🌺🌸</div>
         <div class="section-eyebrow reveal-child">Mempelai</div>
         <div class="section-title serif reveal-child">Kedua Mempelai</div>
         <div class="divider reveal-child"></div>
@@ -487,29 +507,30 @@
       <div class="songket-band"></div>
 
       <section id="love-story" class="reveal">
+        <div class="corner-bouquet top-right">🌺🌼🌸</div>
         <div class="section-eyebrow reveal-child">Perjalanan Kami</div>
         <div class="section-title serif reveal-child">Love Story</div>
         <div class="divider reveal-child"></div>
         <div class="timeline">
           <div class="timeline-item">
             <div class="t-date">Awal Bertemu</div>
-            <div class="t-title serif">Pertama Kali Bertemu</div>
-            <div class="t-desc">Dua hati yang dipertemukan dalam momen sederhana, yang ternyata menjadi awal dari kisah panjang.</div>
+            <div class="t-title serif">Dipertemukan di Bangku SMA</div>
+            <div class="t-desc">Semua berawal di salah satu SMA di Tanralili. Saskia, murid pindahan yang baru menginjakkan kaki di sekolah itu, kebetulan ditempatkan satu kelas dengan Bilal. Dari perkenalan sederhana sebagai teman sekelas, tidak ada yang menyangka kisah ini akan berlanjut jauh lebih panjang.</div>
           </div>
           <div class="timeline-item">
-            <div class="t-date">Menjalin Kasih</div>
-            <div class="t-title serif">Saling Mengenal Lebih Dekat</div>
-            <div class="t-desc">Waktu demi waktu berlalu, kami semakin yakin bahwa satu sama lain adalah bagian dari masa depan.</div>
+            <div class="t-date">Satu Kelas, Semakin Dekat</div>
+            <div class="t-title serif">Tumbuh Bersama di Ruang yang Sama</div>
+            <div class="t-desc">Hari demi hari dilalui berdua di ruang kelas yang sama, saling mengenal kebiasaan dan cerita masing-masing. Pertemanan yang awalnya biasa perlahan tumbuh menjadi sesuatu yang lebih berarti.</div>
           </div>
           <div class="timeline-item">
-            <div class="t-date">Lamaran</div>
-            <div class="t-title serif">Janji untuk Melangkah Bersama</div>
-            <div class="t-desc">Restu keluarga besar menjadi langkah penting menuju hari yang telah kami nantikan.</div>
+            <div class="t-date">Lika-liku & Plot Twist</div>
+            <div class="t-title serif">Melewati Banyak Cerita Tak Terduga</div>
+            <div class="t-desc">Waktu terus berjalan, membawa cerita, jarak, dan plot twist yang tidak pernah diduga sebelumnya. Namun setiap babak yang dilalui justru semakin meyakinkan bahwa mereka berdua ditakdirkan untuk bersama.</div>
           </div>
           <div class="timeline-item">
             <div class="t-date">10 Agustus 2026</div>
-            <div class="t-title serif">Hari Pernikahan</div>
-            <div class="t-desc">Dengan penuh syukur, kami mengundang Bapak/Ibu/Saudara/i untuk menyaksikan dan mendoakan hari bahagia kami.</div>
+            <div class="t-title serif">Menunaikan Sunnah Rasul</div>
+            <div class="t-desc">Dari teman sekelas menjadi dua insan yang siap menunaikan sunnah Rasul, menikah dan membangun keluarga. Dengan penuh syukur, kami mengundang Bapak/Ibu/Saudara/i untuk menyaksikan dan mendoakan hari bahagia kami.</div>
           </div>
         </div>
       </section>
@@ -517,6 +538,8 @@
       <div class="songket-band thin"></div>
 
       <section id="acara" class="reveal">
+        <div class="corner-bouquet top-right">🌼🌸🌺</div>
+        <div class="corner-bouquet bottom-left">🌸🌺🌼</div>
         <div class="section-eyebrow reveal-child">Waktu & Tempat</div>
         <div class="section-title serif reveal-child">Detail Acara</div>
         <div class="divider reveal-child"></div>
@@ -540,6 +563,7 @@
       </section>
 
       <section id="galeri" class="reveal">
+        <div class="corner-bouquet top-right">🌺🌼🌸</div>
         <div class="section-eyebrow reveal-child">Galeri</div>
         <div class="section-title serif reveal-child">Momen Kami</div>
         <div class="divider reveal-child"></div>
@@ -598,6 +622,7 @@
       <div class="songket-band"></div>
 
       <section id="kado" class="reveal">
+        <div class="corner-bouquet top-right">🌼🌺🌸</div>
         <div class="section-eyebrow reveal-child">Tanda Kasih</div>
         <div class="section-title serif reveal-child">Kirim Hadiah</div>
         <div class="divider reveal-child"></div>
@@ -630,6 +655,7 @@
       </section>
 
       <section id="closing" class="reveal">
+        <div id="closing-petals"></div>
         <div class="ornament-top reveal-child" style="margin-bottom:14px;">❀ ✦ ❀</div>
         <p class="closing-quote reveal-child">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
         <div class="closing-names serif reveal-child">Saskia &amp; Bilal</div>
@@ -724,20 +750,20 @@
   }
   renderLinkHistory();
 
-  // ---------- Petal 3D scatter di cover (ambient) ----------
-  const petalEmojis = ['🌺','🌸','💐','🌼','🏵️','✨'];
+  // ---------- Petal 3D scatter di cover (ambient, besar & rimbun seperti bunga semerbak) ----------
+  const petalEmojis = ['🌺','🌸','💐','🌼','🏵️','🌷','✨'];
   const petalLayer = document.getElementById('petal-layer');
 
-  function spawnPetal(){
+  function spawnPetal(big){
     const p = document.createElement('div');
     p.className = 'petal';
     p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
     p.style.left = Math.random()*100 + '%';
 
-    const depth = (Math.random()-0.5) * 200;
+    const depth = (Math.random()-0.5) * 260;
     const scale = 1 + depth/220;
     const duration = 6 - (depth/100)*1.5 + Math.random()*3;
-    const driftX = (Math.random()-0.5) * 160;
+    const driftX = (Math.random()-0.5) * 180;
     const rx = 360 + Math.random()*720;
     const ry = 360 + Math.random()*720;
     const rz = 180 + Math.random()*540;
@@ -749,19 +775,19 @@
     p.style.setProperty('--ry', ry + 'deg');
     p.style.setProperty('--rz', rz + 'deg');
     p.style.animation = `fall3d ${duration}s linear forwards`;
-    p.style.fontSize = (14 + Math.random()*16) + 'px';
+    p.style.fontSize = (big ? (34 + Math.random()*30) : (20 + Math.random()*20)) + 'px';
 
     petalLayer.appendChild(p);
     setTimeout(()=>p.remove(), duration*1000);
   }
-  const ambientInterval = setInterval(spawnPetal, 320);
-  for(let i=0;i<14;i++) setTimeout(spawnPetal, i*110);
+  const ambientInterval = setInterval(()=>spawnPetal(Math.random()<0.35), 230);
+  for(let i=0;i<26;i++) setTimeout(()=>spawnPetal(i%3===0), i*70);
 
-  // ---------- Open invitation: 3D burst ----------
+  // ---------- Open invitation: bunga semerbak besar menutup layar ----------
 function openInvitation(){
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const totalPetals = 90;
+    const totalPetals = 140;
     for(let i=0;i<totalPetals;i++){
       setTimeout(()=>{
         const b = document.createElement('div');
@@ -771,32 +797,32 @@ function openInvitation(){
         const startY = Math.random()*100;
         b.style.left = startX + '%';
         b.style.top = startY + '%';
-        const size = 20 + Math.random()*28;
+        const size = 34 + Math.random()*46;
         b.style.fontSize = size + 'px';
         b.style.transform = 'scale(0)';
         b.style.opacity = '0';
         document.body.appendChild(b);
 
         const angle = Math.random()*Math.PI*2;
-        const spread = 60 + Math.random()*140;
+        const spread = 80 + Math.random()*200;
         const outX = Math.cos(angle) * spread;
         const outY = Math.sin(angle) * spread * 0.5;
         const depthZ = (Math.random()-0.5) * 340;
-        const fallY = vh + 120 - startY*(vh/100);
+        const fallY = vh + 160 - startY*(vh/100);
         const rotX = 360 + Math.random()*720;
         const rotY = 360 + Math.random()*720;
         const rotZ = 180 + Math.random()*720;
-        const dur = 2200 + Math.random()*1600;
+        const dur = 2400 + Math.random()*1800;
 
         b.animate([
           { transform:`translate3d(0,0,0) scale(0) rotateX(0) rotateY(0) rotateZ(0)`, opacity:0, offset:0 },
-          { transform:`translate3d(0,0,${depthZ}px) scale(1.15) rotateX(${rotX*0.15}deg) rotateY(${rotY*0.15}deg) rotateZ(${rotZ*0.15}deg)`, opacity:1, offset:0.14 },
-          { transform:`translate3d(${outX}px, ${outY}px, ${depthZ}px) scale(1) rotateX(${rotX*0.4}deg) rotateY(${rotY*0.4}deg) rotateZ(${rotZ*0.4}deg)`, opacity:1, offset:0.4 },
-          { transform:`translate3d(${outX*1.4}px, ${fallY}px, ${depthZ}px) scale(0.85) rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`, opacity:0.1, offset:1 }
+          { transform:`translate3d(0,0,${depthZ}px) scale(1.25) rotateX(${rotX*0.15}deg) rotateY(${rotY*0.15}deg) rotateZ(${rotZ*0.15}deg)`, opacity:1, offset:0.14 },
+          { transform:`translate3d(${outX}px, ${outY}px, ${depthZ}px) scale(1.1) rotateX(${rotX*0.4}deg) rotateY(${rotY*0.4}deg) rotateZ(${rotZ*0.4}deg)`, opacity:1, offset:0.4 },
+          { transform:`translate3d(${outX*1.4}px, ${fallY}px, ${depthZ}px) scale(0.9) rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`, opacity:0.12, offset:1 }
         ], { duration: dur, easing:'cubic-bezier(.16,.7,.2,1)' });
 
         setTimeout(()=>b.remove(), dur + 300);
-      }, i*14);
+      }, i*10);
     }
 
     setTimeout(()=>{
@@ -812,6 +838,7 @@ function openInvitation(){
       music.play().catch(()=>{});
       document.getElementById('music-toggle').classList.add('spinning');
       startAmbientPetals();
+      spawnClosingBouquet();
       updateProgress();
     }, 600);
   }
@@ -852,10 +879,10 @@ function openInvitation(){
     p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
     p.style.left = Math.random()*100 + '%';
 
-    const depth = (Math.random()-0.5) * 160;
+    const depth = (Math.random()-0.5) * 180;
     const scale = 1 + depth/220;
     const duration = 8 - (depth/100) + Math.random()*4;
-    const driftX = (Math.random()-0.5) * 120;
+    const driftX = (Math.random()-0.5) * 130;
     const rx = 360 + Math.random()*540;
     const ry = 360 + Math.random()*540;
     const rz = 180 + Math.random()*360;
@@ -867,7 +894,7 @@ function openInvitation(){
     p.style.setProperty('--ry', ry + 'deg');
     p.style.setProperty('--rz', rz + 'deg');
     p.style.animation = `fall3d ${duration}s linear forwards`;
-    p.style.fontSize = (12 + Math.random()*12) + 'px';
+    p.style.fontSize = (16 + Math.random()*18) + 'px';
 
     ambientLayer.appendChild(p);
     setTimeout(()=>p.remove(), duration*1000);
@@ -875,7 +902,24 @@ function openInvitation(){
   function startAmbientPetals(){
     if(ambientRunning) return;
     ambientRunning = true;
-    setInterval(spawnAmbientPetal, 1300);
+    setInterval(spawnAmbientPetal, 1000);
+  }
+
+  // Bunga besar menghiasi halaman penutup (persis seperti screenshot terakhir)
+  function spawnClosingBouquet(){
+    const layer = document.getElementById('closing-petals');
+    if(!layer) return;
+    for(let i=0;i<22;i++){
+      const p = document.createElement('div');
+      p.style.position = 'absolute';
+      p.style.left = Math.random()*100 + '%';
+      p.style.top = Math.random()*100 + '%';
+      p.style.fontSize = (26 + Math.random()*30) + 'px';
+      p.style.opacity = (0.35 + Math.random()*0.4).toFixed(2);
+      p.style.transform = `rotate(${Math.random()*360}deg)`;
+      p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+      layer.appendChild(p);
+    }
   }
 
   function fireConfetti(){
