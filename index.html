@@ -273,7 +273,15 @@
   .avatar-ring .inner .placeholder-fallback .pf-label{font-size:9px; letter-spacing:0.5px; color:var(--gold); text-align:center; padding:0 10px;}
   .couple-card .name{font-family:'Playfair Display', serif; font-size:22px; color:var(--maroon-deep);}
   .couple-card .role{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin:4px 0 8px;}
-  .couple-card .parents{font-size:13px; color:#6b584a; max-width:280px; line-height:1.6;}
+  .couple-card .parents{
+    font-size:16px; color:var(--maroon-deep); max-width:290px; line-height:1.85;
+    margin-top:2px; font-style:italic;
+  }
+  .couple-card .parents b{
+    display:inline-block; margin-top:2px; font-family:'Playfair Display', serif;
+    font-style:normal; font-weight:700; font-size:16.5px; color:var(--maroon);
+    letter-spacing:0.2px;
+  }
   .couple-and{text-align:center; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:26px; color:var(--gold); margin:6px 0 30px;}
 
   #acara{background:linear-gradient(180deg,#fdf3e0,var(--cream));}
@@ -434,6 +442,39 @@
     margin-top:14px; text-align:center;
   }
 
+  /* ---------- Halaman "Hormat kami yang mengundang" (keluarga kedua mempelai) ---------- */
+  #keluarga{
+    background:
+      radial-gradient(circle at 20% 15%, rgba(212,175,55,0.15), transparent 50%),
+      radial-gradient(circle at 85% 85%, rgba(110,15,31,0.06), transparent 55%),
+      linear-gradient(180deg,var(--cream),#fdf3e0);
+  }
+  .keluarga-intro{
+    text-align:center; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16px;
+    color:#5b4a3f; max-width:320px; margin:0 auto 26px; line-height:1.8;
+  }
+  .keluarga-card{
+    background:#fff; border:1px solid #eadfc4; border-radius:14px; padding:24px 20px;
+    box-shadow:0 8px 24px rgba(74,10,21,0.06); text-align:center;
+  }
+  .keluarga-group{ margin-bottom:20px; }
+  .keluarga-group:last-of-type{ margin-bottom:0; }
+  .keluarga-label{
+    font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--gold);
+    font-weight:600; margin-bottom:8px;
+  }
+  .keluarga-names{
+    font-family:'Playfair Display', serif; font-size:17px; color:var(--maroon-deep);
+    line-height:1.7;
+  }
+  .keluarga-divider-sm{
+    width:40px; height:1px; background:var(--gold); margin:18px auto;
+  }
+  .keluarga-besar{
+    font-size:13.5px; color:#6b584a; line-height:1.8; margin-top:4px;
+  }
+  .keluarga-besar b{ color:var(--maroon-deep); font-weight:600; }
+
   /* ---------- PANEL MEMPELAI (halaman terakhir, hanya muncul tanpa ?to=) ---------- */
 #admin-panel{
   background:
@@ -494,7 +535,7 @@
       <div class="guest-name" id="guest-name-cover">Tamu Undangan</div>
     </div>
     <button id="open-btn" onclick="openInvitation()">✧ Buka Undangan ✧</button>
-    <div class="ornament-bottom">MAKASSAR • 9–10 AGUSTUS 2026</div>
+    <div class="ornament-bottom">MAROS • 9–10 AGUSTUS 2026</div>
   </div>
 
   <!-- MAIN CONTENT -->
@@ -504,7 +545,7 @@
       <section id="hero" class="reveal photo-section">
         <div class="corner-bouquet top-right">🌸🏵️🌸</div>
         <div class="kupu reveal-child">❀ ✦ ❀</div>
-        <div class="hero-names serif reveal-child">Saskia Widya Ningsih<span class="amp2 script">&amp;</span>Muh. Bilal Genda Ali</div>
+        <div class="hero-names serif reveal-child">KIYO<span class="amp2 script">&amp;</span>BASO</div>
         <p class="verse reveal-child">"Sipakatau, sipakalebbi, sipakainge. Dalam cinta kami belajar untuk saling memanusiakan, saling memuliakan, dan saling mengingatkan. Dengan restu Allah SWT dan doa dari keluarga serta sahabat, kami melangkah menuju kehidupan yang baru sebagai satu keluarga."
         </p>
         <div class="mini-countdown reveal-child" id="mini-countdown"></div>
@@ -531,9 +572,10 @@
           </div>
           <div class="name serif">Saskia Widya Ningsih</div>
           <div class="role">Mempelai Wanita</div>
+          <div class="parents script">Anak pertama dari<br><b>H. Ilyas Hannasi &amp; Hj. Fitriani Azis</b></div>
         </div>
 
-        <div class="couple-and reveal-child">&</div>
+        <div class="couple-and">&</div>
 
         <div class="couple-card reveal-child">
           <div class="avatar-ring">
@@ -547,6 +589,7 @@
           </div>
           <div class="name serif">Muh. Bilal Genda Ali</div>
           <div class="role">Mempelai Pria</div>
+          <div class="parents script">Anak terakhir dari<br><b>(Alm) Genda Ali &amp; Ramlah, S.</b></div>
         </div>
       </section>
 
@@ -639,6 +682,36 @@
       </section>
 
       <div class="songket-band thin"></div>
+
+      <section id="keluarga" class="reveal photo-section">
+        <div class="corner-bouquet top-right">🌸🏵️🌸</div>
+        <div class="corner-bouquet bottom-left">🌸🏵️🌸</div>
+        <div class="section-eyebrow reveal-child">Turut Mengundang</div>
+        <div class="section-title serif reveal-child">Hormat Kami</div>
+        <div class="divider reveal-child"></div>
+        <p class="keluarga-intro reveal-child">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu, atas nama:</p>
+
+        <div class="keluarga-card reveal-child">
+          <div class="keluarga-group">
+            <div class="keluarga-label">Keluarga Besar Kedua Mempelai</div>
+            <div class="keluarga-names">
+              H. Ilyas Hannasi / Hj. Fitriani Azis<br>
+              H. Abdul Cholil / Hj. Nirmawati<br>
+              Hj. Ferawati dan Sekeluarga<br>
+              Keluarga Besar H. Abdul Azis<br>dan Hj. Sitti Nur Hasma
+            </div>
+          </div>
+
+          <div class="keluarga-divider-sm"></div>
+
+          <div class="keluarga-group" style="margin-bottom:0;">
+            <div class="keluarga-label">Serta</div>
+            <div class="keluarga-names">Seluruh Keluarga Besar yang tidak bisa disebutkan namanya satu persatu.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="songket-band"></div>
 
       <section id="rsvp" class="reveal photo-section">
         <div class="section-eyebrow reveal-child">Konfirmasi Kehadiran</div>
@@ -851,10 +924,6 @@
   for(let i=0;i<12;i++) setTimeout(()=>spawnPetal(i%3===0), i*120);
 
   // ---------- Bunga besar penuh HALAMAN COVER saat buka undangan: masuk dari kiri & kanan, fade in/out ----------
-  // Elemen ditaruh DI DALAM #cover (bukan document.body) supaya animasinya
-  // terkunci di dalam lebar "kartu" undangan (max-width:480px), bukan
-  // melebar ke seluruh layar browser/website. Ini juga yang membuat animasi
-  // hanya memenuhi halaman pembuka (cover), bukan seluruh website.
   const coverEl = document.getElementById('cover');
   function spawnMegaPetals(){
     const rows = 12;
